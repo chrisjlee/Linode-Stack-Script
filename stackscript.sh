@@ -8,12 +8,12 @@
 # <UDF name="admin_pubkey" Label="Administrative User's SSH Public Key" default="" example="Optional SSH public key (from ~/.ssh/id_dsa.pub) to be associated with the Administrative User above." />
 # <UDF name="notify_email" Label="Send Finish Notification To" example="Email address to send notification to when finished.  Build time is just under 15 minutes." />
 
-# StackScript written by Chris Lee <chris@globerunnerseo.com>
+# StackScript written by Chris Lee <iam@chrisjlee.net>
 
 source <ssinclude StackScriptID="1">
 
 function base_install {
-	aptitude install -y install git-core unzip curl php5-cli php5-gd libapache2-mod-php5 php-pear
+	aptitude install -y install tasksel git-core unzip wget curl php5-cli php5-gd libapache2-mod-php5 php-pear
 }
 
 function drush_install {
@@ -26,23 +26,23 @@ function drush_install {
 }
 
 function dotfiles_install {
-	git clone git://github.com/chrisjlee/dotfiles.git ~/.dotfiles
+	git clone git://github.com/chrisjlee/dotfiles.git $HOME/.dotfiles
 }
 
 function uampfiles_install {
-	git clone git://github.com/chrisjlee/uamp-files.git .uamp-files
+	git clone git://github.com/chrisjlee/uamp-files.git $HOME/.uamp-files
 }
 
 function backup_mysqlcnf {
 	cp /etc/mysql/my.cnf /etc/mysql/my.cnf_backup
 }
 function dotfiles_setup {
-	cp ~/.dotfiles/.bash* ~/
-	cp ~/.dotfiles/.prompt ~/
-	cp ~/.dotfiles/.gitc* ~/
-	cp ~/.dotfiles/.giti* ~/
-	cp -rfv ~/.dotfiles/.vim* ~/
-	echo "source ~/.bash_profile" >> ~/.bashrc && source ~/.bashrc
+	cp ~/.dotfiles/.bash* $HOME
+	cp ~/.dotfiles/.prompt $HOME
+	cp ~/.dotfiles/.gitc* $HOME
+	cp ~/.dotfiles/.giti* $HOME
+	cp -rfv ~/.dotfiles/.vim* $HOME
+	echo "source ~/.bash_profile" >> $HOME/.bashrc && source $HOME/.bashrc
 }
 
 base_install
